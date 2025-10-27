@@ -1,4 +1,3 @@
-# TCDS-SISTEMA-PREDICTIVO
 # TCDS — Sistema Predictivo de Defensa Sísmica 🌍
 
 **Autor:** Genaro Carrasco Ozuna  
