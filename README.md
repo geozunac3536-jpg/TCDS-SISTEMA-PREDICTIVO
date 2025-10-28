@@ -2,7 +2,7 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17463490.svg)](https://doi.org/10.5281/zenodo.17463490)
 
-Nodo público con PDF, DOI, citación y verificación de integridad. Página: https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/
+Nodo público con PDF, DOI, citación y verificación de integridad. [Página:](https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO)
 
 ## Contenido
 - `SISTEMA_PREDICTIVO_DE_DEFENSA_SÍSMICA.pdf` — Documento principal.
