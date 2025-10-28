@@ -1,15 +1,9 @@
-### 3) `CITATION.cff`
-```yaml
 cff-version: 1.2.0
-message: "Si usas este trabajo, por favor cita esta obra."
 title: "TCDS — Sistema Predictivo"
-version: "1.0.0"
 doi: "10.5281/zenodo.17463490"
 date-released: "2025-10-28"
 authors:
   - family-names: "Carrasco Ozuna"
     given-names: "Genaro"
     orcid: "https://orcid.org/0009-0005-6358-9910"
-repository-code: "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO"
-url: "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/"
 license: "MIT"
