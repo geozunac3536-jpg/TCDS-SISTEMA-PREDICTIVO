@@ -2,7 +2,7 @@
 
 **Autor:** [Genaro Carrasco Ozuna] 
 **DOI:**https://zenodo.org/DOI/10.5281/zenodo.17451373
-(https://doi.org/10.5281/zenodo.17451373)
+(https://zenodo.org/DOI/10.5281/zenodo.17451373)
  
 **Objetivo:** Reducción global de riesgo sísmico mediante predicción causal TCDS.  
 
