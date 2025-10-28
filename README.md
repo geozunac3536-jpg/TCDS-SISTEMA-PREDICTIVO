@@ -1,9 +1,7 @@
 # TCDS — Sistema Predictivo de Defensa Sísmica 🌍
 
 **Autor:** [Genaro Carrasco Ozuna] 
-**DOI:**https://zenodo.org/DOI/10.5281/zenodo.17451373
-(https://zenodo.org/DOI/10.5281/zenodo.17451373)
- 
+**[https://zenodo.org/badge/1083912975.svg)](https://doi.org/10.5281/zenodo.17452045)
 **Objetivo:** Reducción global de riesgo sísmico mediante predicción causal TCDS.  
 
 ## Documentos principales
