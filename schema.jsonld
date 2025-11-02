@@ -1,0 +1,33 @@
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "name": "TCDS — Sistema Predictivo de Defensa Sísmica",
+  "author": {
+    "@type": "Person",
+    "name": "Genaro Carrasco Ozuna",
+    "affiliation": "Proyecto TCDS / MSL México",
+    "email": "geozunac3536@gmail.com"
+  },
+  "identifier": "https://doi.org/10.5281/zenodo.17451385",
+  "inLanguage": "es",
+  "description": "Aplicación del marco TCDS a la predicción causal de actividad sísmica mediante Σ-metrics (R, LI, RMSE_SL, κΣ) y hardware ΣFET.",
+  "keywords": [
+    "TCDS",
+    "Sistema Predictivo",
+    "ΣFET",
+    "Coherencia",
+    "Sismos",
+    "Ingeniería Paradigmática Simbiótica"
+  ],
+  "license": [
+    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO/blob/main/LICENSE-COMMERCIAL.md"
+  ],
+  "url": "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
+  "version": "1.1",
+  "datePublished": "2025-11-02",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Proyecto TCDS — Canon Paradigmático"
+  }
+}
