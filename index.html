@@ -1,50 +1,922 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
   <title>TCDS — Sistema Predictivo de Defensa Sísmica</title>
-  <meta name="description" content="Predicción causal TCDS con Σ-metrics para defensa sísmica." />
-  <link rel="icon" href="data:," />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Sistema Predictivo de Defensa Sísmica basado en la Teoría Cromodinámica Sincrónica (TCDS) y en métricas de coherencia Σ-metrics para detección temprana de patrones sísmicos." />
+  <meta name="author" content="Genaro Carrasco Ozuna" />
+
+  <!-- Estilos básicos en tema oscuro -->
+  <style>
+    :root {
+      --bg: #040611;
+      --bg-alt: #070b1b;
+      --card: #0b1024;
+      --accent: #36d1ff;
+      --accent-soft: rgba(54, 209, 255, 0.15);
+      --accent-strong: #00f5a0;
+      --text: #f5f6ff;
+      --muted: #9ca3c7;
+      --border-soft: rgba(148, 163, 184, 0.35);
+      --danger: #ff6b6b;
+      --radius-xl: 18px;
+      --radius-2xl: 26px;
+      --shadow-soft: 0 18px 45px rgba(0, 0, 0, 0.65);
+      --shadow-button: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #151b3a 0, var(--bg) 55%, #02030a 100%);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(15, 23, 42, 0.75));
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 20% 0%, var(--accent-strong), var(--accent));
+      box-shadow: 0 0 18px rgba(56, 189, 248, 0.8);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      font-size: 13px;
+    }
+
+    .brand-text span:first-child {
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .brand-text span:last-child {
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 16px;
+      font-size: 12px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      padding: 4px 8px;
+      border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-main {
+      padding: 26px 22px;
+      border-radius: var(--radius-2xl);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.16), transparent 55%),
+        linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96));
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.8);
+      margin-bottom: 10px;
+    }
+
+    .hero-tag-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #4ade80, #22c55e);
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.9);
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 3vw, 32px);
+      line-height: 1.1;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #7dd3fc, #a855f7, #22c55e);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      max-width: 480px;
+      margin-bottom: 18px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .hero-meta strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #020617;
+      box-shadow: var(--shadow-button);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.7);
+      text-decoration: none;
+    }
+
+    .btn-ghost {
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6);
+      text-decoration: none;
+    }
+
+    .btn span {
+      font-size: 14px;
+    }
+
+    .hero-note {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .hero-note code {
+      font-size: 11px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
+
+    .hero-side {
+      border-radius: var(--radius-2xl);
+      background:
+        radial-gradient(circle at top right, rgba(56, 189, 248, 0.18), transparent 55%),
+        linear-gradient(145deg, #020617, #020617);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .kpi-header {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    .kpi-pill {
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .kpi-pill strong {
+      color: var(--accent-strong);
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .kpi-card {
+      border-radius: 16px;
+      background: radial-gradient(circle at top, rgba(56, 189, 248, 0.16), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      padding: 10px 9px;
+      font-size: 11px;
+    }
+
+    .kpi-label {
+      color: var(--muted);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .kpi-value {
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .badge-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(22, 163, 74, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+      margin-top: 8px;
+    }
+
+    .badge-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #4ade80, #22c55e);
+    }
+
+    .hero-side-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* SECTIONS */
+    section {
+      margin-top: 40px;
+    }
+
+    .section-header {
+      margin-bottom: 14px;
+    }
+
+    .section-kicker {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--bg-alt);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      padding: 18px 16px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.65);
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    ul.feature-list {
+      list-style: none;
+      margin-top: 6px;
+    }
+
+    ul.feature-list li {
+      position: relative;
+      padding-left: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    ul.feature-list li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 11px;
+      top: 2px;
+    }
+
+    .tagline-strong {
+      color: var(--accent-strong);
+      font-weight: 600;
+    }
+
+    /* TIMELINE */
+    .timeline {
+      border-left: 1px solid rgba(148, 163, 184, 0.45);
+      margin-left: 6px;
+      padding-left: 14px;
+    }
+
+    .timeline-item {
+      margin-bottom: 12px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: 4px;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent), var(--accent-strong));
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.9);
+    }
+
+    .timeline-label {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .timeline-desc {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* FOOTER */
+    footer {
+      margin-top: 46px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      font-size: 11px;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    footer a {
+      font-size: 11px;
+    }
+
+    @media (max-width: 840px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-side {
+        order: -1;
+      }
+
+      .section-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+
+  <!-- JSON-LD para crawlers (SoftwareApplication + ResearchProject) -->
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"TechArticle",
-    "name":"TCDS — Sistema Predictivo de Defensa Sísmica",
-    "author":{"@type":"Person","name":"Genaro Carrasco Ozuna"},
-    "identifier":"https://doi.org/10.5281/zenodo.17451385",
-    "about":["Sismos","Predicción","Ingeniería de coherencia Σ","TCDS"],
-    "inLanguage":"es",
-    "license":"https://creativecommons.org/publicdomain/zero/1.0/",
-    "url":"https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/"
+    "@context": "https://schema.org",
+    "@type": ["SoftwareApplication", "ResearchProject"],
+    "name": "TCDS — Sistema Predictivo de Defensa Sísmica",
+    "alternateName": "Sistema Predictivo de Defensa Sísmica TCDS",
+    "url": "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
+    "applicationCategory": "ScientificApplication",
+    "operatingSystem": "Platform independent (Python / Linux / Termux / GitHub Actions)",
+    "creator": {
+      "@type": "Person",
+      "name": "Genaro Carrasco Ozuna",
+      "identifier": "https://orcid.org/0009-0005-6358-9910",
+      "affiliation": "Proyecto TCDS / Motor Sincrónico de Luz (MSL), México"
+    },
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "description": "Sistema de defensa sísmica basado en la Teoría Cromodinámica Sincrónica (TCDS) que utiliza Σ-metrics (LI, R(t), RMSE_SL, κΣ) para detectar patrones de coherencia previa a eventos sísmicos y emitir alertas tempranas experimentales.",
+    "keywords": [
+      "TCDS",
+      "Teoría Cromodinámica Sincrónica",
+      "Sistema predictivo sísmico",
+      "Defensa sísmica",
+      "Σ-metrics",
+      "Coherencia",
+      "Sismología",
+      "Early warning",
+      "E-Veto",
+      "Filtro de honestidad"
+    ],
+    "citation": "Carrasco, G. (2025). TCDS — Sistema Predictivo de Defensa Sísmica. Zenodo. https://doi.org/10.5281/zenodo.17451385",
+    "sameAs": [
+      "https://doi.org/10.5281/zenodo.17451385",
+      "https://orcid.org/0009-0005-6358-9910",
+      "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO"
+    ]
   }
   </script>
-  <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Arial,sans-serif;margin:0;padding:2rem;line-height:1.6}
-    .wrap{max-width:980px;margin:auto}
-    header h1{margin:.2rem 0}
-    .cta a{display:inline-block;margin:.4rem .6rem .4rem 0;padding:.6rem .9rem;border:1px solid #ddd;border-radius:.6rem;text-decoration:none}
-    iframe{width:100%;height:80vh;border:1px solid #eee;border-radius:.6rem}
-    footer{margin-top:2rem;color:#666;font-size:.9rem}
-  </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>TCDS — Sistema Predictivo de Defensa Sísmica</h1>
-      <p><strong>Autor:</strong> Genaro Carrasco Ozuna · <strong>DOI:</strong> 
-        <a href="https://doi.org/10.5281/zenodo.17451385" target="_blank" rel="noopener">10.5281/zenodo.17451385</a>
-      </p>
-      <div class="cta">
-        <a href="SISTEMA_PREDICTIVO_DE_DEFENSA_SÍSMICA.pdf" target="_blank" rel="noopener">Abrir PDF en otra pestaña</a>
-        <a href="https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO" target="_blank" rel="noopener">Ver repositorio</a>
+  <div class="page">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-text">
+          <span>TCDS · Σ-metrics</span>
+          <span>Sistema Predictivo de Defensa Sísmica</span>
+        </div>
       </div>
+      <div class="nav-links">
+        <a href="#que-es">Qué es</a>
+        <a href="#como-funciona">Cómo funciona</a>
+        <a href="#caracteristicas">Características</a>
+        <a href="#estado-proyecto">Estado</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-main">
+        <div class="hero-tag">
+          <span class="hero-tag-dot"></span>
+          <span>Prototipo de defensa sísmica · TCDS</span>
+        </div>
+
+        <h1 class="hero-title">
+          Un <span>sistema predictivo de defensa sísmica</span> basado en coherencia
+        </h1>
+
+        <p class="hero-subtitle">
+          Este proyecto explora si es posible detectar <strong>patrones de coherencia Σ</strong> previos a sismos,
+          usando el marco TCDS y un filtro de honestidad (E-Veto) para evitar apofenia en los datos.
+        </p>
+
+        <div class="hero-meta">
+          <div><strong>Autor:</strong> Genaro Carrasco Ozuna</div>
+          <div><strong>DOI:</strong> <a href="https://doi.org/10.5281/zenodo.17451385" target="_blank" rel="noopener">10.5281/zenodo.17451385</a></div>
+          <div><strong>Tipo:</strong> Sistema predictivo experimental · Open Science</div>
+        </div>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://doi.org/10.5281/zenodo.17451385" target="_blank" rel="noopener">
+            <span>📄 Leer informe técnico (Zenodo)</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO" target="_blank" rel="noopener">
+            <span>💻 Ver repositorio en GitHub</span>
+          </a>
+        </div>
+
+        <p class="hero-note">
+          KPIs ΣMP objetivo:
+          <code>LI ≥ 0.9 · R &gt; 0.95 · RMSE_SL &lt; 0.1 · Reproducibilidad ≥ 95%</code>
+        </p>
+      </div>
+
+      <aside class="hero-side">
+        <div>
+          <div class="kpi-header">Marco TCDS</div>
+          <div class="kpi-pill">
+            Balance coherencial: <strong>Q · Σ = φ</strong><br />
+            El sistema mide si el empuje (Q) y la sincronización (Σ) se desbalancean antes de un evento sísmico.
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Métrica central</div>
+            <div class="kpi-value">Σ-metrics (LI, R(t), RMSE_SL, κΣ)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Dominio</div>
+            <div class="kpi-value">Predicción sísmica · Defensa civil</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Modo</div>
+            <div class="kpi-value">Precursores de coherencia</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">E-Veto</div>
+            <div class="kpi-value">Filtro de apofenia (ΔH &lt; 0)</div>
+          </div>
+        </div>
+
+        <div class="badge-status">
+          <span class="badge-status-dot"></span>
+          <span>Prototipo investigacional (TRL bajo) · Validación en curso</span>
+        </div>
+
+        <p class="hero-side-note">
+          Este sistema no sustituye redes sísmicas oficiales (SSN, USGS, etc.). Es un
+          <strong>laboratorio de coherencia</strong> diseñado para ser auditado, falsado y mejorado.
+        </p>
+      </aside>
     </header>
 
-    <iframe src="SISTEMA_PREDICTIVO_DE_DEFENSA_SÍSMICA.pdf"></iframe>
+    <!-- SECCIÓN: ¿QUÉ ES? -->
+    <section id="que-es">
+      <div class="section-header">
+        <div class="section-kicker">Descripción general</div>
+        <h2 class="section-title">¿Qué es el Sistema Predictivo de Defensa Sísmica TCDS?</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Propósito</h3>
+          <p>
+            El Sistema Predictivo de Defensa Sísmica TCDS es un experimento de ingeniería
+            que prueba una idea concreta:
+          </p>
+          <p>
+            <span class="tagline-strong">si antes de un sismo se forma un patrón de coherencia medible
+            en los datos (Σ), entonces esa coherencia debería detectarse con Σ-metrics antes de que
+            ocurra el evento.</span>
+          </p>
+          <p>
+            En vez de buscar “anomalías” sueltas, el sistema busca <strong>locking</strong> y
+            <strong>resonancias</strong> en ventanas específicas, aplicando un
+            <em>Filtro de Honestidad</em> (E-Veto) que obliga a que cualquier supuesta señal
+            muestre también una caída en entropía (ΔH &lt; 0), para descartar correlaciones falsas.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>¿Para quién es?</h3>
+          <ul class="feature-list">
+            <li><strong>Protección civil y tomadores de decisión</strong> que necesitan entender qué tipo de
+              alertas podrían derivarse de señales pre-sísmicas, y qué tan confiables son.</li>
+            <li><strong>Comunidad científica</strong> interesada en poner a prueba, auditar o refutar la hipótesis
+              de precursores de coherencia bajo un marco reproducible.</li>
+            <li><strong>Desarrolladores y hackers de datos</strong> que quieran extender el pipeline, integrar nuevas
+              fuentes o testear sus propios modelos sobre los mismos datos.</li>
+          </ul>
+          <div class="pill-list">
+            <span class="pill">Open Science</span>
+            <span class="pill">Reproductibilidad</span>
+            <span class="pill">Auditoría externa</span>
+            <span class="pill">TCDS · Q–Σ–φ–χ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CÓMO FUNCIONA -->
+    <section id="como-funciona">
+      <div class="section-header">
+        <div class="section-kicker">Arquitectura</div>
+        <h2 class="section-title">Cómo funciona el sistema (vista de alto nivel)</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Pipeline básico</h3>
+          <ul class="feature-list">
+            <li><strong>1. Ingesta de datos:</strong> series temporales relevantes (sismogramas,
+              catálogos de eventos, datos experimentales de laboratorio tipo ΣFET, etc.).</li>
+            <li><strong>2. Ventanas Σ:</strong> se definen ventanas p:q alrededor de intervalos
+              de interés (antes, durante y después de eventos seleccionados).</li>
+            <li><strong>3. Cálculo de Σ-metrics:</strong> para cada ventana se calculan
+              <code>R(t)</code>, <code>LI</code>, <code>RMSE_SL</code>, <code>κΣ</code> y otras métricas
+              de locking y coherencia.</li>
+            <li><strong>4. Aplicación del E-Veto:</strong> solo se consideran candidatos aquellos patrones
+              que muestran coherencia alta y una caída en entropía (ΔH negativa) sostenida.</li>
+            <li><strong>5. Evaluación predictiva:</strong> se compara la distribución de métricas antes
+              de eventos sísmicos vs. periodos de fondo para evaluar <em>skill predictivo</em>.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Decisiones de diseño</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-label">Diseño Q-driven</div>
+              <div class="timeline-desc">
+                El sistema prioriza <strong>criterios de ingeniería</strong> (reproducibilidad, falsación,
+                trazabilidad) antes que interpretaciones narrativas de los datos.
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-label">Trazabilidad total</div>
+              <div class="timeline-desc">
+                Cada corrida debe poder reconstruirse a partir de scripts, parámetros y seeds publicados
+                junto con el informe (Zenodo + GitHub).
+              </div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-label">E-Veto obligatorio</div>
+              <div class="timeline-desc">
+                Ninguna “señal” se considera válida si no muestra, además de buen ajuste,
+                una <strong>caída forzada en entropía</strong> (ΔH &lt; 0) en la ventana relevante.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CARACTERÍSTICAS -->
+    <section id="caracteristicas">
+      <div class="section-header">
+        <div class="section-kicker">Características</div>
+        <h2 class="section-title">Qué hace distinto a este sistema</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Características clave</h3>
+          <ul class="feature-list">
+            <li><strong>Enfoque en coherencia, no solo magnitud:</strong> se analiza la forma en que las señales
+              se sincronizan, no solo los picos de amplitud.</li>
+            <li><strong>Métricas ΣMP explícitas:</strong> LI, R(t), RMSE_SL y κΣ están definidas y se usan como
+              KPIs públicos.</li>
+            <li><strong>Filtro de apofenia:</strong> el E-Veto obliga a demostrar una caída en entropía, reduciendo
+              falsos positivos por ruido.</li>
+            <li><strong>Diseño audit-able:</strong> pensado para que otros puedan replicar, refutar o mejorar el
+              pipeline.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Límites y cautelas</h3>
+          <ul class="feature-list">
+            <li>Es un <strong>prototipo experimental</strong>, no un sistema operativo de alerta temprana.</li>
+            <li>Su objetivo es <strong>probar hipótesis</strong>, no emitir alertas para uso civil directo.</li>
+            <li>Debe interpretarse <strong>siempre junto</strong> con redes oficiales (SSN, USGS, etc.).</li>
+            <li>El resultado más valioso puede ser tanto una confirmación parcial como una falsación clara.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: ESTADO DEL PROYECTO -->
+    <section id="estado-proyecto">
+      <div class="section-header">
+        <div class="section-kicker">Estado del proyecto</div>
+        <h2 class="section-title">En qué punto va el desarrollo</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Estado actual</h3>
+          <ul class="feature-list">
+            <li><strong>Documentación base</strong> publicada en Zenodo (DOI principal del sistema).</li>
+            <li><strong>Repositorio GitHub</strong> en configuración de prueba, listo para recibir datos y scripts adicionales.</li>
+            <li><strong>Marco teórico TCDS</strong> consolidado en publicaciones previas (Sincronón, ΣFET, CSL-H, Σ-metrics).</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Próximos pasos deseados</h3>
+          <ul class="feature-list">
+            <li>Incorporar <strong>datasets sísmicos históricos</strong> completos para pruebas ciegas.</li>
+            <li>Publicar <strong>scripts de análisis</strong> estandarizados (pipelines reproductibles).</li>
+            <li>Ejecutar campañas de <strong>falsación externa</strong> en colaboración con grupos sísmicos.</li>
+            <li>Explorar integración con <strong>ΣFET de laboratorio</strong> como canal experimental complementario.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: RECURSOS -->
+    <section id="recursos">
+      <div class="section-header">
+        <div class="section-kicker">Recursos</div>
+        <h2 class="section-title">Dónde leer más y cómo auditar el sistema</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>Publicaciones y datos</h3>
+          <ul class="feature-list">
+            <li><strong>Informe del Sistema Predictivo de Defensa Sísmica:</strong><br />
+              DOI: <a href="https://doi.org/10.5281/zenodo.17451385" target="_blank" rel="noopener">10.5281/zenodo.17451385</a>
+            </li>
+            <li><strong>Repositorio del sistema en GitHub:</strong><br />
+              <a href="https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO" target="_blank" rel="noopener">
+                github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Cómo auditar la propuesta</h3>
+          <ul class="feature-list">
+            <li>Revisar la definición formal de Σ-metrics y KPIs usados.</li>
+            <li>Replicar los análisis sobre datasets sísmicos públicos (catálogos, waveform data).</li>
+            <li>Aplicar tests de significancia y falsación alternativos (shuffle, bootstrapping, permutaciones).</li>
+            <li>Comparar contra métodos estándar de predicción/nowcasting para evaluar ganancia real de información.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN: CONTACTO / COLABORACIÓN -->
+    <section id="contacto">
+      <div class="section-header">
+        <div class="section-kicker">Colaboración</div>
+        <h2 class="section-title">Contacto e invitación abierta</h2>
+      </div>
+
+      <div class="section-grid">
+        <div class="card">
+          <h3>¿Quieres colaborar o auditar?</h3>
+          <p>
+            El proyecto está diseñado para ser <strong>auditable y ampliable</strong>.
+            Si trabajas en sismología, ciencia de datos, instrumentación o campos afines y quisieras:
+          </p>
+          <ul class="feature-list">
+            <li>Probar el sistema con tus propios datos.</li>
+            <li>Diseñar experimentos de falsación controlada.</li>
+            <li>Explorar aplicaciones en otros dominios (redes eléctricas, monitoreo estructural, etc.).</li>
+          </ul>
+          <p>Puedes iniciar la conversación vía:</p>
+          <ul class="feature-list">
+            <li>ORCID / perfil: <a href="https://orcid.org/0009-0005-6358-9910" target="_blank" rel="noopener">
+              orcid.org/0009-0005-6358-9910</a></li>
+            <li>Issues del repositorio GitHub del sistema.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Uso responsable</h3>
+          <p>
+            Este sistema no pretende sustituir las alertas oficiales ni debe ser usado de forma aislada
+            para tomar decisiones críticas sobre población o infraestructura.
+          </p>
+          <p>
+            Su valor está en abrir la conversación sobre <strong>defensa sísmica basada en coherencia</strong>:
+            si la hipótesis TCDS se sostiene, los relojes de coherencia podrían convertirse en
+            una nueva capa de defensa; si no se sostiene, habremos delimitado con claridad
+            dónde termina su dominio de validez.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <footer>
-      <p>KPIs ΣMP: LI ≥ 0.9 · R &gt; 0.95 · RMSE_SL &lt; 0.1 · Reproducibilidad ≥ 95%</p>
+      <div>
+        © 2025 Genaro Carrasco Ozuna · Proyecto TCDS / Motor Sincrónico de Luz (MSL)
+      </div>
+      <div class="footer-links">
+        <span>Licencia: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></span>
+        <span>DOI: <a href="https://doi.org/10.5281/zenodo.17451385" target="_blank" rel="noopener">10.5281/zenodo.17451385</a></span>
+        <span>Repo: <a href="https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO" target="_blank" rel="noopener">GitHub</a></span>
+      </div>
     </footer>
   </div>
 </body>
