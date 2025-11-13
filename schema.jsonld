@@ -1,33 +1,133 @@
 {
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#"
+  },
+  "@type": [
+    "SoftwareSourceCode",
+    "Dataset",
+    "CreativeWork",
+    "ResearchProject"
+  ],
   "name": "TCDS — Sistema Predictivo de Defensa Sísmica",
+  "alternateName": [
+    "Sistema Predictivo de Defensa Sísmica TCDS",
+    "TCDS-SISTEMA-PREDICTIVO"
+  ],
+  "description": "Repositorio oficial del \"TCDS — Sistema Predictivo de Defensa Sísmica\", un sistema predictivo experimental basado en la Teoría Cromodinámica Sincrónica (TCDS) y en Σ-metrics (R(t), LI, RMSE_SL, κΣ) para explorar la existencia de patrones de coherencia medible previos a eventos sísmicos. El sistema implementa un Filtro de Honestidad (E-Veto, ΔH < 0) para reducir apofenia y está diseñado como laboratorio de coherencia y testbed de falsación, no como sustituto de redes sísmicas oficiales.",
+  "url": "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO",
+  "codeRepository": "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO",
+  "repositoryUrl": "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO",
+  "isBasedOn": [
+    "https://geozunac3536-jpg.github.io/TCDS-Convergencia/",
+    "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
+    "https://doi.org/10.5281/zenodo.17451385",
+    "https://doi.org/10.5281/zenodo.17463490"
+  ],
+  "identifier": [
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.5281/zenodo.17451385",
+      "description": "Documento principal del sistema predictivo."
+    },
+    {
+      "@type": "PropertyValue",
+      "propertyID": "DOI",
+      "value": "10.5281/zenodo.17463490",
+      "description": "DOI de software asociado al sistema predictivo."
+    }
+  ],
+  "keywords": [
+    "TCDS",
+    "Teoría Cromodinámica Sincrónica",
+    "Sistema predictivo sísmico",
+    "Defensa sísmica",
+    "Σ-metrics",
+    "LI",
+    "RMSE_SL",
+    "kappa Sigma",
+    "E-Veto",
+    "Filtro de honestidad",
+    "Coherencia",
+    "Sismología",
+    "Early warning",
+    "Q·Σ = φ",
+    "Tiempo Causal",
+    "t_C"
+  ],
+  "programmingLanguage": [
+    "Python",
+    "Shell",
+    "HTML"
+  ],
+  "applicationCategory": [
+    "ScientificApplication",
+    "EarlyWarningSystem",
+    "DisasterPreparedness"
+  ],
+  "operatingSystem": "Platform independent (Linux, macOS, Windows, Android/Termux)",
   "author": {
     "@type": "Person",
     "name": "Genaro Carrasco Ozuna",
-    "affiliation": "Proyecto TCDS / MSL México",
-    "email": "geozunac3536@gmail.com"
+    "identifier": "https://orcid.org/0009-0005-6358-9910",
+    "affiliation": "Proyecto TCDS / Motor Sincrónico de Luz (MSL), México",
+    "email": "genarocarrasco.ozuna@gmail.com",
+    "sameAs": [
+      "https://orcid.org/0009-0005-6358-9910"
+    ]
   },
-  "identifier": "https://doi.org/10.5281/zenodo.17451385",
-  "inLanguage": "es",
-  "description": "Aplicación del marco TCDS a la predicción causal de actividad sísmica mediante Σ-metrics (R, LI, RMSE_SL, κΣ) y hardware ΣFET.",
-  "keywords": [
-    "TCDS",
-    "Sistema Predictivo",
-    "ΣFET",
-    "Coherencia",
-    "Sismos",
-    "Ingeniería Paradigmática Simbiótica"
-  ],
-  "license": [
-    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
-    "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO/blob/main/LICENSE-COMMERCIAL.md"
-  ],
-  "url": "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
-  "version": "1.1",
-  "datePublished": "2025-11-02",
+  "creator": {
+    "@type": "Person",
+    "name": "Genaro Carrasco Ozuna",
+    "identifier": "https://orcid.org/0009-0005-6358-9910",
+    "affiliation": "Proyecto TCDS / Motor Sincrónico de Luz (MSL), México"
+  },
   "publisher": {
     "@type": "Organization",
-    "name": "Proyecto TCDS — Canon Paradigmático"
+    "name": "Proyecto TCDS / Motor Sincrónico de Luz (MSL)"
+  },
+  "maintainer": {
+    "@type": "Person",
+    "name": "Genaro Carrasco Ozuna",
+    "email": "geozunac3536@gmail.com"
+  },
+  "license": [
+    "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+    "https://opensource.org/licenses/MIT"
+  ],
+  "isAccessibleForFree": true,
+  "dateCreated": "2025-11-01",
+  "dateModified": "2025-11-13",
+  "version": "1.0.0",
+  "fileSize": "Repository-scale, multi-file",
+  "contentUrl": "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
+  "documentation": [
+    "https://doi.org/10.5281/zenodo.17451385",
+    "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/"
+  ],
+  "citation": [
+    "Carrasco, G. (2025). TCDS — Sistema Predictivo de Defensa Sísmica. Zenodo. https://doi.org/10.5281/zenodo.17451385",
+    "Carrasco, G. (2025). TCDS — Sistema Predictivo de Defensa Sísmica (software). Zenodo. https://doi.org/10.5281/zenodo.17463490"
+  ],
+  "relatedLink": [
+    "https://doi.org/10.5281/zenodo.17463045",
+    "https://doi.org/10.5281/zenodo.17450752",
+    "https://doi.org/10.5281/zenodo.17504507",
+    "https://doi.org/10.5281/zenodo.17504243"
+  ],
+  "prov:wasDerivedFrom": {
+    "@type": "CreativeWork",
+    "name": "Canon TCDS, Σ-metrics y ΣFET",
+    "url": "https://geozunac3536-jpg.github.io/TCDS-Convergencia/"
+  },
+  "potentialAction": {
+    "@type": "CommunicateAction",
+    "name": "Colaborar o auditar el sistema predictivo sísmico",
+    "target": [
+      "https://github.com/geozunac3536-jpg/TCDS-SISTEMA-PREDICTIVO/issues",
+      "mailto:genarocarrasco.ozuna@gmail.com"
+    ],
+    "description": "Investigadores en sismología, ciencia de datos e instrumentación pueden auditar, refutar o extender el sistema predictivo TCDS basado en Σ-metrics y E-Veto."
   }
 }
