@@ -1,0 +1,74 @@
+{
+  "title": "TCDS — Sistema Predictivo de Defensa Sísmica",
+  "upload_type": "software",
+  "publication_type": "softwaredocumentation",
+  "description": "Repositorio GitHub del \"TCDS — Sistema Predictivo de Defensa Sísmica\": un sistema predictivo experimental basado en la Teoría Cromodinámica Sincrónica (TCDS) y en Σ-metrics (R(t), LI, RMSE_SL, κΣ) para explorar la presencia de patrones de coherencia medible previos a eventos sísmicos. El sistema implementa un Filtro de Honestidad (E-Veto, ΔH < 0) para reducir apofenia y está diseñado como laboratorio de coherencia y plataforma de falsación, no como sustituto de redes sísmicas oficiales.",
+  "creators": [
+    {
+      "name": "Carrasco Ozuna, Genaro",
+      "affiliation": "Proyecto TCDS / Motor Sincrónico de Luz (MSL), México",
+      "orcid": "0009-0005-6358-9910"
+    }
+  ],
+  "access_right": "open",
+  "license": "other-open",
+  "keywords": [
+    "TCDS",
+    "Teoría Cromodinámica Sincrónica",
+    "Sistema predictivo sísmico",
+    "Defensa sísmica",
+    "Σ-metrics",
+    "E-Veto",
+    "Filtro de honestidad",
+    "Coherencia",
+    "Sismología",
+    "Early warning",
+    "Q·Σ = φ",
+    "Tiempo Causal"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "10.5281/zenodo.17451385",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-article"
+    },
+    {
+      "identifier": "10.5281/zenodo.17463490",
+      "relation": "isAlternateIdentifier",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://geozunac3536-jpg.github.io/TCDS-SISTEMA-PREDICTIVO/",
+      "relation": "isSupplementedBy",
+      "resource_type": "other"
+    },
+    {
+      "identifier": "https://geozunac3536-jpg.github.io/TCDS-Convergencia/",
+      "relation": "isPartOf",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.5281/zenodo.17463045",
+      "relation": "isPartOf",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.5281/zenodo.17450752",
+      "relation": "isPartOf",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.5281/zenodo.17504507",
+      "relation": "isPartOf",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.5281/zenodo.17504243",
+      "relation": "isPartOf",
+      "resource_type": "dataset"
+    }
+  ],
+  "language": "spa",
+  "communities": [],
+  "version": "1.0.0"
+}
