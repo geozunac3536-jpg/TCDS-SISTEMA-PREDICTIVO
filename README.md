@@ -7,10 +7,6 @@
 [![Build](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=githubactions)](https://github.com/geozunac3536-jpg/Las-Sigma-Metrics/actions)
 [![Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-121212?style=for-the-badge&logo=github)](https://geozunac3536-jpg.github.io/Las-Sigma-Metrics/)
 
-<p align="center">
-  <img src="https://copilot.microsoft.com/th/id/BCO.7bcb8109-52a6-4b5c-9604-c02d595e1d5b.png" alt="Sigma-Metrics Banner" width="100%" />
-</p>
-
 ## 📄 Documento principal
 - **PDF:** <a href="SISTEMA_PREDICTIVO_DE_DEFENSA_SÍSMICA.pdf" target="_blank" rel="noopener">Abrir en otra pestaña</a>
 
